@@ -134,10 +134,14 @@ public:
     }
     inline bool operator<(const HausnummerPlzExact& other) const {
         _numberOfComparisons++;
-        if (_plz != other._plz) {
-            return _plz < other._plz;
+        if (_plz ^ other._plz) {
+            // Curious: This seems to be faster than:
+            // return _plz < other._plz;
+            return _plz - other._plz < 0 ? true : false;
         } else {
-            return _hausnummer < other._hausnummer;
+            // Curious: This seems to be faster than:
+            // return _hausnummer < other._hausnummer;
+            return _hausnummer - other._hausnummer < 0 ? true : false;
         }
     }
     int getHausnummer() const {

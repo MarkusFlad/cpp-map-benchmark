@@ -62,8 +62,8 @@ int main(int argc, char** argv) {
             }
             i++;
             if (i>5) {
-                addresses.push_back(Adresse(vorname, name, strasse, hausnummer,
-                        plz, ort));
+                addresses.emplace_back(vorname, name, strasse, hausnummer,
+                        plz, ort);
                 i=0;
             }
         }
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
         wcout << "Putting adresses to vector and file ..." << endl;
         wofstream outfile("addresses.txt");
         for (int i=0; i<3000000; i++) {
-            addresses.push_back(Adresse::randomAdresse(randomizer));
+            addresses.emplace_back(Adresse::randomAdresse(randomizer));
             const Adresse& adresse = addresses[i];
             outfile << adresse.getVorname() << '\n';
             outfile << adresse.getName() << '\n';
@@ -90,8 +90,8 @@ int main(int argc, char** argv) {
     typedef map<VornameNameExact, const Adresse*> SearchMap1;
     SearchMap1 addressMap1;
     for (const Adresse& adresse :  addresses) {
-        addressMap1[VornameNameExact(adresse.getVorname(),
-                adresse.getName())] = &adresse;
+        addressMap1.emplace(VornameNameExact(adresse.getVorname(),
+                adresse.getName()), &adresse);
     }
     auto startBuildingIndex2 = steady_clock::now();
     auto diff1_1 = startBuildingIndex2 - startBuildingIndex1;
@@ -101,8 +101,8 @@ int main(int argc, char** argv) {
     typedef map<HausnummerPlzExact, const Adresse*> SearchMap2;
     SearchMap2 addressMap2;
     for (const Adresse& adresse :  addresses) {
-        addressMap2[HausnummerPlzExact(adresse.getHausnummer(),
-                adresse.getPlz())] = &adresse;
+        addressMap2.emplace(HausnummerPlzExact(adresse.getHausnummer(),
+                adresse.getPlz()), &adresse);
     }
     auto startCreatingSearchRequests1 = steady_clock::now();
     auto diff2_1 = startCreatingSearchRequests1 - startBuildingIndex2;
@@ -127,7 +127,7 @@ int main(int argc, char** argv) {
             }
             i++;
             if (i>1) {
-                searchRequests1.push_back(VornameNameExact(vorname, name));
+                searchRequests1.emplace_back(vorname, name);
                 i=0;
             }
         }
@@ -135,9 +135,9 @@ int main(int argc, char** argv) {
         wcout << "Putting search requests 1 to vector and file ..." << endl;
         wofstream outfile("searchRequests1.txt");
         for (int i=0; i<1000000; i++) {
-            searchRequests1.push_back(VornameNameExact::randomVornameNameExact(
+            searchRequests1.emplace_back(VornameNameExact::randomVornameNameExact(
                                       randomizer));
-            VornameNameExact& vne = searchRequests1[i];
+            const VornameNameExact& vne = searchRequests1[i];
             outfile << vne.getVorname() << '\n';
             outfile << vne.getName() << '\n';
         }
@@ -171,7 +171,7 @@ int main(int argc, char** argv) {
             }
             i++;
             if (i>1) {
-                searchRequests2.push_back(HausnummerPlzExact(hausnummer, plz));
+                searchRequests2.emplace_back(hausnummer, plz);
                 i=0;
             }
         }
@@ -179,9 +179,9 @@ int main(int argc, char** argv) {
         wcout << "Putting search requests 2 to vector and file ..." << endl;
         wofstream outfile("searchRequests2.txt");
         for (int i=0; i<1000000; i++) {
-            searchRequests2.push_back(HausnummerPlzExact::
+            searchRequests2.emplace_back(HausnummerPlzExact::
                                       randomHausnummerPlzExact(randomizer));
-            HausnummerPlzExact hpe = searchRequests2[i];
+            const HausnummerPlzExact& hpe = searchRequests2[i];
             outfile << hpe.getHausnummer() << '\n';
             outfile << hpe.getPlz() << '\n';
         }
