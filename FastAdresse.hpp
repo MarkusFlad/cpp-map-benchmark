@@ -101,15 +101,66 @@ public:
             return _vorname < other._vorname;
         }
     }
+    std::wstring getVorname() const {
+        return _vorname;
+    }
+    std::wstring getName() const {
+        return _name;
+    }
     static VornameNameExact randomVornameNameExact(
         std::minstd_rand0& randomizer) {
         return VornameNameExact (RandomObjects::randomString (randomizer, 10),
                                  RandomObjects::randomString (randomizer, 15));
         
     }
+    static void resetNumberOfComparisons() {
+        _numberOfComparisons = 0;
+    }
+    static int getNumberOfComparisons() {
+        return _numberOfComparisons;
+    }
 private:
     std::wstring _vorname;
     std::wstring _name;
+    static int _numberOfComparisons;
+};
+
+class HausnummerPlzExact {
+public:
+    HausnummerPlzExact (int hausnummer, int plz)
+    : _hausnummer(hausnummer)
+    , _plz(plz) {
+    }
+    inline bool operator<(const HausnummerPlzExact& other) const {
+        _numberOfComparisons++;
+        if (_plz != other._plz) {
+            return _plz < other._plz;
+        } else {
+            return _hausnummer < other._hausnummer;
+        }
+    }
+    int getHausnummer() const {
+        return _hausnummer;
+    }
+    int getPlz() const {
+        return _plz;
+    }
+    static HausnummerPlzExact randomHausnummerPlzExact(
+        std::minstd_rand0& randomizer) {
+        return HausnummerPlzExact (RandomObjects::randomNumber (randomizer, 100),
+                RandomObjects::randomNumber (randomizer, 100000));
+       
+    }
+    static void resetNumberOfComparisons() {
+        _numberOfComparisons = 0;
+    }
+    static int getNumberOfComparisons() {
+        return _numberOfComparisons;
+    }
+private:
+    int _hausnummer;
+    int _plz;
+    static int _numberOfComparisons;
 };
 
 }

@@ -5,7 +5,7 @@
  * Created on 8. Februar 2016, 22:03
  */
 
-#include "SlowAdresse.hpp"
+#include "FastAdresse.hpp"
 #include <vector>
 #include <map>
 #include <iostream>
@@ -15,7 +15,7 @@
 
 using namespace std;
 using namespace std::chrono;
-using namespace SlowAdresse;
+using namespace FastAdresse;
 
 int main(int argc, char** argv) {
     auto start = steady_clock::now();
