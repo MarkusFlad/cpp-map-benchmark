@@ -95,6 +95,7 @@ public:
     , _name(name) {
     }
     bool operator<(const VornameNameExact& other) const {
+        _numberOfComparisons++;
         if (_name != other._name) {
             return _name < other._name;
         } else {
