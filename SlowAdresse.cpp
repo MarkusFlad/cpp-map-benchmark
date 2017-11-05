@@ -69,6 +69,14 @@ VornameNameExact::VornameNameExact (const wstring& vorname,
 : _vorname (vorname)
 , _name (name) {
 }
+bool VornameNameExact::operator<(const VornameNameExact& other) const {
+    _numberOfComparisons++;
+    if (_name != other._name) {
+        return _name < other._name;
+    } else {
+        return _vorname < other._vorname;
+    }
+}
 wstring VornameNameExact::getVorname() const {
     return _vorname;
 }
@@ -89,6 +97,14 @@ int VornameNameExact::getNumberOfComparisons() {
 HausnummerPlzExact::HausnummerPlzExact (int hausnummer, int plz)
 : _hausnummer (hausnummer)
 , _plz (plz) {
+}
+bool HausnummerPlzExact::operator<(const HausnummerPlzExact& other) const {
+    _numberOfComparisons++;
+    if (_plz != other._plz) {
+        return _plz < other._plz;
+    } else {
+        return _hausnummer < other._hausnummer;
+    }
 }
 int HausnummerPlzExact::getHausnummer() const {
     return _hausnummer;

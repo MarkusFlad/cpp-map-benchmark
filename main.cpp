@@ -6,6 +6,7 @@
  */
 
 #include "FastAdresse.hpp"
+#include "SlowAdresse.hpp"
 #include <vector>
 #include <map>
 #include <iostream>

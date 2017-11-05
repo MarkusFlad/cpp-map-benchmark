@@ -57,14 +57,7 @@ private:
 class VornameNameExact {
 public:
     VornameNameExact (const std::wstring& vorname, const std::wstring& name);
-    inline bool operator<(const VornameNameExact& other) const {
-        _numberOfComparisons++;
-        if (_name != other._name) {
-            return _name < other._name;
-        } else {
-            return _vorname < other._vorname;
-        }
-    }
+    bool operator<(const VornameNameExact& other) const;
     std::wstring getVorname() const;
     std::wstring getName() const;
     static VornameNameExact randomVornameNameExact(
@@ -80,14 +73,7 @@ private:
 class HausnummerPlzExact {
 public:
     HausnummerPlzExact (int hausnummer, int plz);
-    inline bool operator<(const HausnummerPlzExact& other) const {
-        _numberOfComparisons++;
-        if (_plz != other._plz) {
-            return _plz < other._plz;
-        } else {
-            return _hausnummer < other._hausnummer;
-        }
-    }
+    bool operator<(const HausnummerPlzExact& other) const;
     int getHausnummer() const;
     int getPlz() const;
     static HausnummerPlzExact randomHausnummerPlzExact(
