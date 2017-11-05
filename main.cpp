@@ -199,7 +199,7 @@ int main(int argc, char** argv) {
             SearchMap1::const_iterator itFound = addressMap1.find(searchRequest);
             if (itFound != addressMap1.end()) {
                 const Adresse* foundAdresse = itFound->second;
-                //wcout << "Found adresse: " << *foundAdresse << endl;
+                wcout << "Found adresse: " << *foundAdresse << endl;
             }
         }
     }
